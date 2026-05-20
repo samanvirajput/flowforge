@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  body {
+    background-color: #05090f;
+    color: #c8d8ea;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 212, 168, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 168, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #root { position: relative; z-index: 1; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #05090f; }
+  ::-webkit-scrollbar-thumb { background: #14243a; border-radius: 2px; }
+}
+
+@layer components {
+  .mono { font-family: 'Space Mono', monospace; }
+
+  .label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3a5a7a;
+  }
+
+  .card {
+    background: #090e17;
+    border: 1px solid #14243a;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .btn-primary {
+    @apply bg-accent text-bg font-mono text-xs font-bold tracking-widest uppercase px-4 py-2
+           hover:brightness-110 transition-all duration-150 cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply border border-border text-text-dim font-mono text-xs tracking-widest uppercase px-4 py-2
+           hover:border-accent hover:text-accent transition-all duration-150 cursor-pointer;
+  }
+
+  /* Pulsing status dot */
+  .dot-live {
+    @apply inline-block w-2 h-2 rounded-full bg-accent;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+
+  .dot-dead {
+    @apply inline-block w-2 h-2 rounded-full bg-muted;
+  }
+
+  .dot-error {
+    @apply inline-block w-2 h-2 rounded-full bg-danger;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* Recharts overrides */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #14243a !important;
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: #090e17 !important;
+  border: 1px solid #14243a !important;
+  border-radius: 0 !important;
+}
